@@ -23,18 +23,44 @@ export class LoginComponent {
 
   login() {
     this.errorMsg = [];
-    this.authService.getToken({body: this.authRequest})
-    .subscribe(
-      {
+    this.authService.getToken({ body: this.authRequest })
+      .subscribe({
         next: (response) => {
           this.router.navigate(['/vehiculos']);
         },
-        error: (error) => {
-          console.log(error);
-          this.errorMsg.push("Usuario o contraseña incorrectos");
+        error: (errorResponse) => {
+          this.handleErrorResponse(errorResponse);
         }
+      });
+  }
+
+  handleErrorResponse(errorResponse: any) {
+    if (errorResponse.error instanceof Blob) {
+      // Si el error es un Blob, lo convertimos
+      this.convertBlobToMessage(errorResponse.error);
+    } else if (errorResponse.error && errorResponse.error.message) {
+      // Si el error tiene un mensaje, lo mostramos directamente
+      this.errorMsg.push(errorResponse.error.message);
+    } else {
+      // En otros casos, mostramos un mensaje genérico
+      this.errorMsg.push(`Error ${errorResponse.status}: ${errorResponse.statusText || 'Desconocido'}`);
+    }
+  }
+
+  // Función para convertir un Blob en un mensaje y agregarlo a errorMsg
+  convertBlobToMessage(blob: Blob) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const errorMessage = JSON.parse(reader.result as string); // Convierte el blob a JSON
+        this.errorMsg.push(errorMessage.message); // Muestra el mensaje de error
+      } catch (e) {
+        this.errorMsg.push("Error al procesar el mensaje de error.");
       }
-    );
+    };
+
+    // Lee el Blob como texto
+    reader.readAsText(blob);
   }
 
   register(){
