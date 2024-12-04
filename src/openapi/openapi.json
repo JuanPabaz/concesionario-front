@@ -1,0 +1,400 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Especificacion OpenApi - Juan Pablo",
+    "description": "Documentacion de OpenApi para prueba tecnica Benfit con Spring Security",
+    "contact": {
+      "name": "Juan Pablo",
+      "url": "https://github.com/JuanPabaz/ConcesionarioPrueba",
+      "email": "jpgthf@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    { "url": "http://localhost:8080/api/1.0", "description": "Ambiente Local" }
+  ],
+  "security": [{ "BearerToken": [] }],
+  "paths": {
+    "/vehiculo/{id_vehiculo}": {
+      "put": {
+        "tags": ["vehiculo-controller"],
+        "operationId": "actualizarVehiculo",
+        "parameters": [
+          {
+            "name": "id_vehiculo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Vehiculo" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["vehiculo-controller"],
+        "operationId": "eliminarVehiculo",
+        "parameters": [
+          {
+            "name": "id_vehiculo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/orden/{id_orden}": {
+      "put": {
+        "tags": ["orden-controller"],
+        "operationId": "actualizarOrden",
+        "parameters": [
+          {
+            "name": "id_orden",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Orden" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["orden-controller"],
+        "operationId": "eliminarOrden",
+        "parameters": [
+          {
+            "name": "id_orden",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/vehiculo": {
+      "get": {
+        "tags": ["vehiculo-controller"],
+        "operationId": "ListarVehiculos",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/VehiculoDTO" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["vehiculo-controller"],
+        "operationId": "crearVehiculo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Vehiculo" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/orden": {
+      "get": {
+        "tags": ["orden-controller"],
+        "operationId": "listarOrdenes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/OrdenDTO" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["orden-controller"],
+        "operationId": "crearOrden",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Orden" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["authentication-controller"],
+        "operationId": "addNewUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Usuario" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/UsuarioResponseDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/refreshToken": {
+      "post": {
+        "tags": ["authentication-controller"],
+        "operationId": "refreshToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthResponseDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/AuthResponseDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["authentication-controller"],
+        "operationId": "getToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthRequestDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/AuthResponseDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/validateToken/{token}": {
+      "get": {
+        "tags": ["authentication-controller"],
+        "operationId": "validateToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "object" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Orden": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "vehiculo": { "$ref": "#/components/schemas/Vehiculo" },
+          "fechaOrden": { "type": "string", "format": "date" },
+          "tipo": {
+            "type": "string",
+            "enum": ["MANTENIMIENTO", "PINTURA", "REPARACION", "REVISION"]
+          },
+          "activa": { "type": "boolean" }
+        }
+      },
+      "Vehiculo": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "placa": { "type": "string" },
+          "marca": { "type": "string" },
+          "modelo": { "type": "string" },
+          "ordenes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Orden" }
+          }
+        }
+      },
+      "GrantedAuthority": {
+        "type": "object",
+        "properties": { "authority": { "type": "string" } }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "idUsuario": { "type": "integer", "format": "int32" },
+          "nombreCompleto": { "type": "string" },
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "role": {
+            "type": "string",
+            "enum": ["CLIENTE", "ADMIN", "SUPERVISOR"]
+          },
+          "enabled": { "type": "boolean" },
+          "authorities": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/GrantedAuthority" }
+          },
+          "accountNonExpired": { "type": "boolean" },
+          "credentialsNonExpired": { "type": "boolean" },
+          "accountNonLocked": { "type": "boolean" }
+        }
+      },
+      "UsuarioResponseDTO": {
+        "type": "object",
+        "properties": {
+          "idUsuario": { "type": "integer", "format": "int32" },
+          "nombreCompleto": { "type": "string" },
+          "role": {
+            "type": "string",
+            "enum": ["CLIENTE", "ADMIN", "SUPERVISOR"]
+          },
+          "username": { "type": "string" }
+        }
+      },
+      "AuthResponseDTO": {
+        "type": "object",
+        "properties": {
+          "accessToken": { "type": "string" },
+          "refreshToken": { "type": "string" },
+          "role": {
+            "type": "string",
+            "enum": ["CLIENTE", "ADMIN", "SUPERVISOR"]
+          }
+        }
+      },
+      "AuthRequestDTO": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "VehiculoDTO": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "placa": { "type": "string" },
+          "marca": { "type": "string" },
+          "modelo": { "type": "string" }
+        }
+      },
+      "OrdenDTO": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "idVehiculo": { "type": "integer", "format": "int64" },
+          "fechaOrden": { "type": "string", "format": "date" },
+          "tipo": {
+            "type": "string",
+            "enum": ["MANTENIMIENTO", "PINTURA", "REPARACION", "REVISION"]
+          },
+          "activa": { "type": "boolean" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerToken": {
+        "type": "http",
+        "description": "Autenticacion JWT",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
