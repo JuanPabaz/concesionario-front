@@ -4,5 +4,30 @@
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
         <p *ngFor="let msg of errorMsg">{{msg}}</p>
     </div>
-    
+    <table *ngIf="vehiculosList.length > 0" class="vehiculos-table">
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Placa</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehiculo of vehiculosList">
+                <td>{{vehiculo.marca}}</td>
+                <td>{{vehiculo.modelo}}</td>
+                <td>{{vehiculo.placa}}</td>
+                <td>
+                    <button (click)="editarVehiculo()" type="button" class="btn btn-primary">
+                        <em class="fas fa-edit"></em>
+                    </button>
+                    <button (click)="eliminarVehiculo()" type="button" class="btn btn-danger">
+                        <em class="fas fa-trash"></em>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="vehiculosList.length === 0 && errorMsg.length === 0">No se encontraron vehículos.</p>
 </div>

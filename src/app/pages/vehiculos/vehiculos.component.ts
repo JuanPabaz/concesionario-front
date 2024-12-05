@@ -33,4 +33,12 @@ export class VehiculosComponent {
         }
       });
   }
+
+  editarVehiculo(){
+
+  }
+
+  eliminarVehiculo(){
+
+  }
 }
