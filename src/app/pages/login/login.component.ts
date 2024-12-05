@@ -28,12 +28,10 @@ export class LoginComponent {
     this.authService.getToken({ body: this.authRequest })
       .subscribe({
         next: (response) => {
-          debugger
           this.tokenService.token = response.accessToken as string;
           this.router.navigate(['/vehiculos']);
         },
         error: (errorResponse) => {
-          debugger
           console.error(errorResponse.error);
           this.errorMsg.push(errorResponse.error.message);
         }
@@ -41,6 +39,6 @@ export class LoginComponent {
   }
 
   register(){
-    this.router.navigate(['/registrarse']);
+    this.router.navigate(['/register']);
   }
 }
